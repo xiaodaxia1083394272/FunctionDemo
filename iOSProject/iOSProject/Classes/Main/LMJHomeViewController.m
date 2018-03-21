@@ -49,9 +49,9 @@
     item04.destVc = [LMJBlockLoopViewController class];
     
     
-    LMJItemSection *section0 = [LMJItemSection sectionWithItems:@[item00, item01, item03, item04] andHeaderTitle:@"生命周期, RunTime" footerTitle:nil];
-    
-    [self.sections addObject:section0];
+//    LMJItemSection *section0 = [LMJItemSection sectionWithItems:@[item00, item01, item03, item04] andHeaderTitle:@"生命周期, RunTime" footerTitle:nil];
+//
+//    [self.sections addObject:section0];
     
     
     
@@ -97,7 +97,10 @@
     
 }
 
-
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:YES];
+    NSLog(@"fafaf");
+}
 
 #pragma mark - LMJNavUIBaseViewControllerDataSource
 //- (BOOL)navUIBaseViewControllerIsNeedNavBar:(LMJNavUIBaseViewController *)navUIBaseViewController

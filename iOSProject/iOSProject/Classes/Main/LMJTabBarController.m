@@ -34,9 +34,9 @@
 
 - (void)addChildViewControllers
 {
-    LMJNavigationController *one = [[LMJNavigationController alloc] initWithRootViewController:[[LMJHomeViewController alloc] init]];
+    LMJNavigationController *two = [[LMJNavigationController alloc] initWithRootViewController:[[LMJHomeViewController alloc] init]];
     
-    LMJNavigationController *two = [[LMJNavigationController alloc] initWithRootViewController:[[LMJNewViewController alloc] init]];
+    LMJNavigationController *one = [[LMJNavigationController alloc] initWithRootViewController:[[LMJNewViewController alloc] init]];
     
     LMJNavigationController *three = [[LMJNavigationController alloc] initWithRootViewController:[[LMJMessageViewController alloc] init]];
     
@@ -44,7 +44,7 @@
     
     LMJNavigationController *five = [[LMJNavigationController alloc] initWithRootViewController:[[LMJCasesViewController alloc] init]];
     
-    self.viewControllers = @[two, one, three, five, four];
+    self.viewControllers = @[one, two, three, five, four];
     
 }
 

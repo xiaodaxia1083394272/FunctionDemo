@@ -40,15 +40,164 @@
 
 
 
-@interface LMJNewViewController ()
-
+@interface LMJNewViewController ()<UITextFieldDelegate>
+@property (nonatomic,strong) UITextField *searchTF;
+@property (nonatomic,strong) NSMutableArray *searchList;
+@property (nonatomic,strong) NSArray *functionKitList;
 @end
 
 @implementation LMJNewViewController
 
+- (NSMutableArray *)searchList{
+    if (!_searchList){
+        _searchList = @[].mutableCopy;
+    }
+    return _searchList;
+}
+- (NSArray *)getData{
+    //
+    LMJWordArrowItem *item1 = [LMJWordArrowItem itemWithTitle:@"省市区三级联动" subTitle: @""];
+    item1.destVc = [LMJAddressPickerViewController class];
+    //
+    LMJWordArrowItem *item2 = [LMJWordArrowItem itemWithTitle:@"没有导航栏全局返回" subTitle: @"滑动返回"];
+    
+    item2.destVc = [LMJNoNavBarViewController class];
+    
+    LMJWordArrowItem *item3 = [LMJWordArrowItem itemWithTitle:@"字体适配屏幕" subTitle: @"FontSize适配"];
+    
+    item3.destVc = [ LMJAdaptFontViewController class];
+    
+    LMJWordArrowItem *item4 = [LMJWordArrowItem itemWithTitle:@"空白页展示" subTitle: @"Error Blank"];
+    
+    item4.destVc = [LMJBlankPageViewController class];
+    
+    LMJWordArrowItem *item5 = [LMJWordArrowItem itemWithTitle:@"导航条颜色或者高度渐变" subTitle: nil];
+    
+    item5.destVc = [LMJAnimationNavBarViewController class];
+    
+    LMJWordArrowItem *item6 = [LMJWordArrowItem itemWithTitle:@"关于 YYText 使用" subTitle: @""];
+    
+    item6.destVc = [LMJYYTextViewController class];
+    
+    LMJWordArrowItem *item7 = [LMJWordArrowItem itemWithTitle:@"列表的展开和收起" subTitle: nil];
+    
+    item7.destVc = [LMJListExpandHideViewController class];
+    
+    LMJWordArrowItem *item8 = [LMJWordArrowItem itemWithTitle:@"App首页 CollectionView 布局" subTitle: @""];
+    
+    item8.destVc = [LMJElementsCollectionViewController class];
+    
+    LMJWordArrowItem *item9 = [LMJWordArrowItem itemWithTitle:@"垂直流水布局" subTitle: nil];
+    
+    item9.destVc = [LMJVerticalLayoutViewController class];
+    
+    
+    LMJWordArrowItem *item10 = [LMJWordArrowItem itemWithTitle:@"水平流水布局" subTitle: nil];
+    
+    item10.destVc = [LMJHorizontalLayoutViewController class];
+    
+    LMJWordArrowItem *item101 = [LMJWordArrowItem itemWithTitle:@"三种CollectionViewLayout布局" subTitle: @"Cute"];
+    
+    item101.destVc = [LMJCuteFlowLayoutViewController class];
+    
+    LMJWordArrowItem *item11 = [LMJWordArrowItem itemWithTitle:@"键盘处理" subTitle: @""];
+    
+    item11.destVc = [LMJKeyboardHandleViewController class];
+    
+    LMJWordArrowItem *item12 = [LMJWordArrowItem itemWithTitle:@"文件下载" subTitle: @"不重复下载服务器未更新文件"];
+    
+    item12.destVc = [LMJDownLoadFileViewController class];
+    
+    LMJWordArrowItem *item121 = [LMJWordArrowItem itemWithTitle:@"文件 断点 离线 缓存 下载" subTitle: @""];
+    
+    item121.destVc = [LMJOfflineDownloadViewController class];
+    
+    LMJWordArrowItem *item13 = [LMJWordArrowItem itemWithTitle:@"Masonry 布局实例" subTitle: @"包含scrollView布局"];
+    
+    item13.destVc = [LMJMasonryViewController class];
+    
+    LMJWordArrowItem *item15 = [LMJWordArrowItem itemWithTitle:@"百度地图" subTitle: @"第三方"];
+    
+    item15.destVc = [LMJBaiduMapViewController class];
+    
+    LMJWordArrowItem *item16 = [LMJWordArrowItem itemWithTitle:@"二维码" subTitle: @"第三方"];
+    
+    item16.destVc = [LMJQRCodeViewController class];
+    
+    LMJWordArrowItem *item17 = [LMJWordArrowItem itemWithTitle:@"照片上传" subTitle: nil];
+    
+    item17.destVc = [LMJUpLoadImagesViewController class];
+    
+    LMJWordArrowItem *item18 = [LMJWordArrowItem itemWithTitle:@"照片上传有进度" subTitle: nil];
+    
+    item18.destVc = [LMJUpLoadProgressViewController class];
+    
+    
+    LMJWordArrowItem *item19 = [LMJWordArrowItem itemWithTitle:@"列表倒计时" subTitle: nil];
+    
+    item19.destVc = [LMJListTimerCountDownViewController class];
+    
+    LMJWordArrowItem *item20 = [LMJWordArrowItem itemWithTitle:@"H5_OC交互" subTitle: @"原生addScriptMessageHandler"];
+    
+    item20.destVc = [LMJH5_OCViewController class];
+    
+    LMJWordArrowItem *item201 = [LMJWordArrowItem itemWithTitle:@"H5_OC_JSBridge交互" subTitle: @"自定义 JSBridge "];
+    
+    item201.destVc = [LMJH5JSBridgeViewController class];
+    
+    LMJWordArrowItem *item21 = [LMJWordArrowItem itemWithTitle:@"自定义各种弹框" subTitle: @""];
+    
+    item21.destVc = [LMJAlertViewsViewController class];
+    
+    LMJWordArrowItem *item22 = [LMJWordArrowItem itemWithTitle:@"常见表单类型" subTitle: nil];
+    
+    item22.destVc = [LMJFillTableFormViewController class];
+    
+//        LMJWordArrowItem *item23 = [LMJWordArrowItem itemWithTitle:@"人脸识别" subTitle: nil];
+//        item23.destVc = [LMJFaceRecognizeViewController class];
+    
+    LMJWordArrowItem *item24 = [LMJWordArrowItem itemWithTitle:@"列表加载图片" subTitle: @"SDWebImage"];
+    
+    item24.destVc = [LMJTableSDWebImageViewController class];
+    
+    LMJWordArrowItem *item25 = [LMJWordArrowItem itemWithTitle:@"列表拖拽" subTitle: @""];
+    
+    item25.destVc = [LMJDragTableViewController class];
+    
+    LMJWordArrowItem *item26 = [LMJWordArrowItem itemWithTitle:@"日历操作" subTitle: @"第三方"];
+    
+    item26.destVc = [LMJCalendarViewController class];
+    
+    LMJWordArrowItem *item27 = [LMJWordArrowItem itemWithTitle:@"导航条渐变" subTitle: @""];
+    
+    item27.destVc = [LMJNavBarFadeViewController class];
+    
+    LMJWordArrowItem *item28 = [LMJWordArrowItem itemWithTitle:@"指纹解锁" subTitle: @""];
+    
+    item28.destVc = [LMJFingerCheckViewController class];
+    
+    LMJWordArrowItem *item29 = [LMJWordArrowItem itemWithTitle:@"原生AutoLayout" subTitle: @"纯代码"];
+    
+    item29.destVc = [LMJAutoLayoutViewController class];
+    
+    LMJWordArrowItem *item30 = [LMJWordArrowItem itemWithTitle:@"VFL布局约束" subTitle: @"纯代码"];
+    
+    item30.destVc = [LMJVFLLayoutViewController class];
+    _functionKitList = @[item1, item2, item3, item4, item5, item6, item7, item8, item9, item10, item101, item11, item12, item121,item13, item29, item30, item15, item16, item17, item18, item19, item20, item201, item21, item22, item24, item25, item26, item27, item28];
+    return _functionKitList;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
-
+    
+    
+    _searchTF = [[UITextField alloc] initWithFrame:self.lmj_navgationBar.titleView.bounds];
+    _searchTF.placeholder = @"搜索关键字";
+    _searchTF.delegate = self;
+    _searchTF.backgroundColor
+    = [UIColor redColor];
+    [self.lmj_navgationBar.titleView addSubview:_searchTF];
+    
     self.tableView.backgroundColor = [UIColor whiteColor];
 
     [self.navigationController.tabBarItem setBadgeColor:[UIColor RandomColor]];
@@ -61,142 +210,53 @@
 //    LMJWordArrowItem *item0 = [LMJWordArrowItem itemWithTitle:@"占位" subTitle: nil];
 //    item0.destVc = [LMJLoggerViewController class];
 
-    LMJWordArrowItem *item1 = [LMJWordArrowItem itemWithTitle:@"省市区三级联动" subTitle: @""];
 
-    item1.destVc = [LMJAddressPickerViewController class];
-
-    LMJWordArrowItem *item2 = [LMJWordArrowItem itemWithTitle:@"没有导航栏全局返回" subTitle: @"滑动返回"];
-
-    item2.destVc = [LMJNoNavBarViewController class];
-
-    LMJWordArrowItem *item3 = [LMJWordArrowItem itemWithTitle:@"字体适配屏幕" subTitle: @"FontSize适配"];
-
-    item3.destVc = [ LMJAdaptFontViewController class];
-
-    LMJWordArrowItem *item4 = [LMJWordArrowItem itemWithTitle:@"空白页展示" subTitle: @"Error Blank"];
-
-    item4.destVc = [LMJBlankPageViewController class];
-
-    LMJWordArrowItem *item5 = [LMJWordArrowItem itemWithTitle:@"导航条颜色或者高度渐变" subTitle: nil];
-
-    item5.destVc = [LMJAnimationNavBarViewController class];
-
-    LMJWordArrowItem *item6 = [LMJWordArrowItem itemWithTitle:@"关于 YYText 使用" subTitle: @""];
-
-    item6.destVc = [LMJYYTextViewController class];
-
-    LMJWordArrowItem *item7 = [LMJWordArrowItem itemWithTitle:@"列表的展开和收起" subTitle: nil];
-
-    item7.destVc = [LMJListExpandHideViewController class];
-
-    LMJWordArrowItem *item8 = [LMJWordArrowItem itemWithTitle:@"App首页 CollectionView 布局" subTitle: @""];
-
-    item8.destVc = [LMJElementsCollectionViewController class];
-
-    LMJWordArrowItem *item9 = [LMJWordArrowItem itemWithTitle:@"垂直流水布局" subTitle: nil];
-
-    item9.destVc = [LMJVerticalLayoutViewController class];
-
-
-    LMJWordArrowItem *item10 = [LMJWordArrowItem itemWithTitle:@"水平流水布局" subTitle: nil];
-
-    item10.destVc = [LMJHorizontalLayoutViewController class];
-
-    LMJWordArrowItem *item101 = [LMJWordArrowItem itemWithTitle:@"三种CollectionViewLayout布局" subTitle: @"Cute"];
-    
-    item101.destVc = [LMJCuteFlowLayoutViewController class];
-    
-    LMJWordArrowItem *item11 = [LMJWordArrowItem itemWithTitle:@"键盘处理" subTitle: @""];
-
-    item11.destVc = [LMJKeyboardHandleViewController class];
-
-    LMJWordArrowItem *item12 = [LMJWordArrowItem itemWithTitle:@"文件下载" subTitle: @"不重复下载服务器未更新文件"];
-
-    item12.destVc = [LMJDownLoadFileViewController class];
-    
-    LMJWordArrowItem *item121 = [LMJWordArrowItem itemWithTitle:@"文件 断点 离线 缓存 下载" subTitle: @""];
-    
-    item121.destVc = [LMJOfflineDownloadViewController class];
-
-    LMJWordArrowItem *item13 = [LMJWordArrowItem itemWithTitle:@"Masonry 布局实例" subTitle: @"包含scrollView布局"];
-
-    item13.destVc = [LMJMasonryViewController class];
-
-    LMJWordArrowItem *item15 = [LMJWordArrowItem itemWithTitle:@"百度地图" subTitle: @"第三方"];
-
-    item15.destVc = [LMJBaiduMapViewController class];
-
-    LMJWordArrowItem *item16 = [LMJWordArrowItem itemWithTitle:@"二维码" subTitle: @"第三方"];
-
-    item16.destVc = [LMJQRCodeViewController class];
-
-    LMJWordArrowItem *item17 = [LMJWordArrowItem itemWithTitle:@"照片上传" subTitle: nil];
-
-    item17.destVc = [LMJUpLoadImagesViewController class];
-
-    LMJWordArrowItem *item18 = [LMJWordArrowItem itemWithTitle:@"照片上传有进度" subTitle: nil];
-
-    item18.destVc = [LMJUpLoadProgressViewController class];
-
-
-    LMJWordArrowItem *item19 = [LMJWordArrowItem itemWithTitle:@"列表倒计时" subTitle: nil];
-
-    item19.destVc = [LMJListTimerCountDownViewController class];
-
-    LMJWordArrowItem *item20 = [LMJWordArrowItem itemWithTitle:@"H5_OC交互" subTitle: @"原生addScriptMessageHandler"];
-
-    item20.destVc = [LMJH5_OCViewController class];
-    
-    LMJWordArrowItem *item201 = [LMJWordArrowItem itemWithTitle:@"H5_OC_JSBridge交互" subTitle: @"自定义 JSBridge "];
-    
-    item201.destVc = [LMJH5JSBridgeViewController class];
-
-    LMJWordArrowItem *item21 = [LMJWordArrowItem itemWithTitle:@"自定义各种弹框" subTitle: @""];
-
-    item21.destVc = [LMJAlertViewsViewController class];
-
-    LMJWordArrowItem *item22 = [LMJWordArrowItem itemWithTitle:@"常见表单类型" subTitle: nil];
-
-    item22.destVc = [LMJFillTableFormViewController class];
-
-//    LMJWordArrowItem *item23 = [LMJWordArrowItem itemWithTitle:@"人脸识别" subTitle: nil];
-//    item23.destVc = [LMJFaceRecognizeViewController class];
-
-    LMJWordArrowItem *item24 = [LMJWordArrowItem itemWithTitle:@"列表加载图片" subTitle: @"SDWebImage"];
-
-    item24.destVc = [LMJTableSDWebImageViewController class];
-
-    LMJWordArrowItem *item25 = [LMJWordArrowItem itemWithTitle:@"列表拖拽" subTitle: @""];
-
-    item25.destVc = [LMJDragTableViewController class];
-
-    LMJWordArrowItem *item26 = [LMJWordArrowItem itemWithTitle:@"日历操作" subTitle: @"第三方"];
-
-    item26.destVc = [LMJCalendarViewController class];
-
-    LMJWordArrowItem *item27 = [LMJWordArrowItem itemWithTitle:@"导航条渐变" subTitle: @""];
-
-    item27.destVc = [LMJNavBarFadeViewController class];
-
-    LMJWordArrowItem *item28 = [LMJWordArrowItem itemWithTitle:@"指纹解锁" subTitle: @""];
-
-    item28.destVc = [LMJFingerCheckViewController class];
-    
-    LMJWordArrowItem *item29 = [LMJWordArrowItem itemWithTitle:@"原生AutoLayout" subTitle: @"纯代码"];
-    
-    item29.destVc = [LMJAutoLayoutViewController class];
-    
-    LMJWordArrowItem *item30 = [LMJWordArrowItem itemWithTitle:@"VFL布局约束" subTitle: @"纯代码"];
-    
-    item30.destVc = [LMJVFLLayoutViewController class];
-    
-
-    LMJItemSection *section0 = [LMJItemSection sectionWithItems:@[item1, item2, item3, item4, item5, item6, item7, item8, item9, item10, item101, item11, item12, item121,item13, item29, item30, item15, item16, item17, item18, item19, item20, item201, item21, item22, item24, item25, item26, item27, item28] andHeaderTitle:@"静态单元格的头部标题" footerTitle:@"静态单元格的尾部标题"];
-
+    LMJItemSection *section0 = [LMJItemSection sectionWithItems:[self getData] andHeaderTitle:@"静态单元格的头部标题" footerTitle:@"静态单元格的尾部标题"];
+/*pss_1，首页数据源,这种写法有点跟死板的MVC有点不同的即是，M最大，甚至M能包含C！
+ 而且他这种写法也是不错，方法放到父类，数据源属性放到子类去自定义（sections）
+ */
     [self.sections addObject:section0];
 }
 
+#pragma mark ---搜索
 
+- (void)textFieldDidEndEditing:(UITextField *)textField{
+    NSLog(@"endText___%@___lengt___%lu",textField.text,textField.text.length);
+    [self.view endEditing:YES];
+    if (textField.text.length == 0){
+        
+        self.searchList = self.functionKitList.mutableCopy;
+        [self.tableView reloadData];
+    }else{
+        [self searchAimStr:textField.text];
+    }
+}
+
+//- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string{
+//
+//    NSLog(@"continueText___%@___lengt___%lu",textField.text,textField.text.length);
+//    if ([string isEqualToString:@"\n"]){
+//        [textField resignFirstResponder];
+//        return NO ;
+//
+//    }
+//
+//
+//    [self searchAimStr:string];
+//    return YES;
+//}
+
+- (void)searchAimStr:(NSString *)string{
+    [self.searchList removeAllObjects];
+    for(LMJWordArrowItem * temp in self.functionKitList){
+        
+        if ([temp.title containsString:string]){
+            [self.searchList addObject:temp];
+        }
+    }
+    [self.tableView reloadData];
+    
+}
 
 #pragma mark 重写BaseViewController设置内容
 
@@ -226,6 +286,7 @@
 
 - (NSMutableAttributedString*)lmjNavigationBarTitle:(LMJNavigationBar *)navigationBar
 {
+
     return [self changeTitle:@"自定义导航栏 View"];
 }
 
