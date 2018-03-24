@@ -220,33 +220,22 @@
 
 #pragma mark ---搜索
 
-- (void)textFieldDidEndEditing:(UITextField *)textField{
-    NSLog(@"endText___%@___lengt___%lu",textField.text,textField.text.length);
-    [self.view endEditing:YES];
-    if (textField.text.length == 0){
-        
-        self.searchList = self.functionKitList.mutableCopy;
-        [self.tableView reloadData];
-    }else{
-        [self searchAimStr:textField.text];
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string{
+
+    [super textField:textField shouldChangeCharactersInRange:range replacementString:string]; NSLog(@"continueText___%@___lengt___%lu",textField.text,textField.text.length);
+    if ([string isEqualToString:@"\n"]){
+        [textField resignFirstResponder];
+        return NO ;
+
     }
+
+
+    [self searchAimStr:string textField:textField];
+    return YES;
 }
 
-//- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string{
-//
-//    NSLog(@"continueText___%@___lengt___%lu",textField.text,textField.text.length);
-//    if ([string isEqualToString:@"\n"]){
-//        [textField resignFirstResponder];
-//        return NO ;
-//
-//    }
-//
-//
-//    [self searchAimStr:string];
-//    return YES;
-//}
-
-- (void)searchAimStr:(NSString *)string{
+- (void)searchAimStr:(NSString *)string
+           textField:(UITextField *)textField{
     [self.searchList removeAllObjects];
     for(LMJWordArrowItem * temp in self.functionKitList){
         
@@ -254,9 +243,18 @@
             [self.searchList addObject:temp];
         }
     }
+    if (self.searchList.count == 0){
+        self.searchList = self.functionKitList.mutableCopy;
+    }
+    //刷数据和UI
+    [self.sections removeAllObjects];
+    LMJItemSection *section0 = [LMJItemSection sectionWithItems:self.searchList andHeaderTitle:@"搜索静态单元格的头部标题" footerTitle:@"搜索静态单元格的尾部标题"];
+    [self.sections addObject:section0];
     [self.tableView reloadData];
     
 }
+
+
 
 #pragma mark 重写BaseViewController设置内容
 
